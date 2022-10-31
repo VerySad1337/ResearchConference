@@ -28,8 +28,9 @@ namespace ResearchConference
             DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "Insert into Paper(PaperID,PaperTitle,URL) values('','" + TextBox1.Text + "', '"+TextBox2.Text+"')";
+            command.CommandText = "Insert into Paper(PaperTitle,URL) values('" + TextBox1.Text + "', '"+TextBox2.Text+"')";
             command.ExecuteNonQuery();
+            Response.Redirect("~/Successful.aspx");
 
             TextBox1.Text = "";
             TextBox2.Text = "";
