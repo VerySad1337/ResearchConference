@@ -11,6 +11,18 @@ namespace ResearchConference
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["PaperIDFromRow"] != null)
+            {
+                Label5.Text = Session["PaperIDFromRow"].ToString();
+            }
+            else
+            {
+                Label5.Text = "Not Found";
+            }
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
