@@ -160,6 +160,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="Successful.aspx" />
     <Content Include="ViewComments.aspx" />
     <Content Include="ViewReview.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -243,6 +244,13 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Successful.aspx.cs">
+      <DependentUpon>Successful.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Successful.aspx.designer.cs">
+      <DependentUpon>Successful.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewComments.aspx.cs">
       <DependentUpon>ViewComments.aspx</DependentUpon>

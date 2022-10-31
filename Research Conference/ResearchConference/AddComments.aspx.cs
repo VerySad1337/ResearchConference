@@ -29,8 +29,9 @@ namespace ResearchConference
             DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "Insert into Comments(CommentID,Comments) values('','"+TextBox1.Text+"')";
+            command.CommandText = "Insert into Comments(Comments) values('"+TextBox1.Text+"')";
             command.ExecuteNonQuery();
+            Response.Redirect("~/Successful.aspx");
 
             TextBox1.Text = "";
         }
