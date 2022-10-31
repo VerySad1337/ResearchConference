@@ -10,36 +10,42 @@ using System.Configuration;
 
 namespace ResearchConference
 {
-    public partial class AddComments : System.Web.UI.Page
+    public partial class CurrentMaxReview : System.Web.UI.Page
     {
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(dbConnection.State == ConnectionState.Open)
+            if (dbConnection.State == ConnectionState.Open)
             {
                 dbConnection.Close();
             }
+            string queryResult = "Select MaxReview from users where UserID = 3";
+            SqlCommand displayResult = new SqlCommand(queryResult,dbConnection);
             dbConnection.Open();
+            string checkForNull = displayResult.ExecuteScalar().ToString();
+            if (checkForNull != "")
+            {
+                Label4.Text = displayResult.ExecuteScalar().ToString();
+            }
             
+
+            else if(checkForNull == "")
+            {
+                Label4.Text = "Not set yet!";
+            }
 
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "Insert into Comments(Comments) values('"+TextBox1.Text+"')";
+            command.CommandText = "UPDATE Users SET MaxReview = '"+TextBox1.Text+"' WHERE UserID = 3";
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
 
             TextBox1.Text = "";
         }
 
-        protected void cancel_Click(object sender, EventArgs e)
-        {
-
-        }
     }
-
 }
