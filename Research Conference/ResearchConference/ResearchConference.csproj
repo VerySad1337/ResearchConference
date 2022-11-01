@@ -108,6 +108,8 @@
     <Content Include="About.aspx" />
     <Content Include="AddComments.aspx" />
     <Content Include="AddReview.aspx" />
+    <Content Include="BidForPaper.aspx" />
+    <Content Include="ConfirmationBidPaper.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -195,6 +197,20 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BidForPaper.aspx.cs">
+      <DependentUpon>BidForPaper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BidForPaper.aspx.designer.cs">
+      <DependentUpon>BidForPaper.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmationBidPaper.aspx.cs">
+      <DependentUpon>ConfirmationBidPaper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfirmationBidPaper.aspx.designer.cs">
+      <DependentUpon>ConfirmationBidPaper.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

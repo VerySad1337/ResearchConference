@@ -31,7 +31,7 @@ namespace ResearchConference
 
                         string queryResult2 = "Select Comments.PaperID from Comments where paperid = " + currentSessionPaperID;
                         SqlCommand displayPaperTitle = new SqlCommand(queryResult2, sqlcon);
-                        string checkForNull = (string)displayPaperTitle.ExecuteScalar();
+                        string checkForNull = displayPaperTitle.ExecuteScalar().ToString();
                         if (string.IsNullOrEmpty(checkForNull))
                         {
                             Label3.Text = "No comments as of now!";
