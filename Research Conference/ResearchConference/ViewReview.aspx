@@ -16,7 +16,12 @@
             <asp:BoundField DataField="URL" HeaderText="URL" SortExpression="URL" />
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:LinkButton ID="giveReview" Text ="Review" runat ="server" CommandArgument='<%# Eval("session") %>' OnClick ="giveReview_Click"/>
+                    <asp:LinkButton ID="giveReview" Text ="Give Review" runat ="server" CommandArgument='<%# Eval("session") %>' OnClick ="giveReview_Click" />                 
+                </ItemTemplate>                
+            </asp:TemplateField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:LinkButton ID="giveComments" Text ="Give Comments" runat ="server" CommandArgument='<%# Eval("session") %>' OnClick ="giveComments_Click"/>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

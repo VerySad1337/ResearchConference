@@ -61,5 +61,12 @@ namespace ResearchConference
             Session["PaperIDFromRow"] = PaperIDSession;
             Response.Redirect("AddReview.aspx");
         }
+        protected void giveComments_Click(object sender, EventArgs e)
+        {
+            int PaperID = Convert.ToInt32((sender as LinkButton).CommandArgument);
+            string PaperIDSession = PaperID.ToString();
+            Session["PaperIDFromRow"] = PaperIDSession;
+            Response.Redirect("AddComments.aspx");
+        }
     }
 }
