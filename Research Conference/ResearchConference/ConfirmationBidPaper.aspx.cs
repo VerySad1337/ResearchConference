@@ -53,12 +53,32 @@ namespace ResearchConference
             if (dt.Rows.Count < 1)
             {
                 DateTime time = DateTime.Now;
-                SqlCommand command = dbConnection.CreateCommand();
-                command.CommandType = CommandType.Text;
-                string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                command.CommandText = "Insert into Allocation(PaperID,UserID ) values('" + currentSessionPaperID + "' , '" + currentSessionUserID + "')";
-                command.ExecuteNonQuery();
-                Response.Redirect("~/Successful.aspx");
+                SqlCommand myQuery = dbConnection.CreateCommand();
+                myQuery.CommandType = CommandType.Text;
+                myQuery.CommandText = "Select maxreview from users where userid=" + currentSessionUserID;
+                myQuery.ExecuteNonQuery();
+                int checkMaxReviewExceed = int.Parse(myQuery.ExecuteScalar().ToString());
+
+                SqlCommand myQuery2 = dbConnection.CreateCommand();
+                myQuery2.CommandType = CommandType.Text;
+                myQuery2.CommandText = "Select count(*) from allocation where GradeID IS NULL and userid=" + currentSessionUserID;
+                myQuery2.ExecuteNonQuery();
+                int ifExceed = int.Parse(myQuery.ExecuteScalar().ToString());
+                int currentreviewcount = int.Parse(myQuery2.ExecuteScalar().ToString());
+
+                if (currentreviewcount < ifExceed)
+                {
+                    SqlCommand commands = dbConnection.CreateCommand();
+                    commands.CommandType = CommandType.Text;
+                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                    commands.CommandText = "Insert into Allocation(PaperID,UserID ) values('" + currentSessionPaperID + "' , '" + currentSessionUserID + "')";
+                    commands.ExecuteNonQuery();
+                    Response.Redirect("~/Successful.aspx");
+                }
+                else
+                {
+                    Label3.Text = "Exceeded your max limit";
+                }
             }
             else
             {
