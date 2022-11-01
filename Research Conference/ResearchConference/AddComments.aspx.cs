@@ -15,13 +15,20 @@ namespace ResearchConference
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(dbConnection.State == ConnectionState.Open)
+            if (Session["PaperIDFromRow"] != null)
             {
-                dbConnection.Close();
+                string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                string queryResult2 = "Select Paper.PaperTitle from Paper INNER JOIN Allocation On Allocation.PaperID = Paper.PaperID where Paper.PaperID= " + currentSessionPaperID;
+                SqlCommand displayPaperTitle = new SqlCommand(queryResult2, dbConnection);
+                dbConnection.Open();
+                string outputPaperTitle = displayPaperTitle.ExecuteScalar().ToString();
+                Label3.Text = "Currently giving comments for: "+ outputPaperTitle;                
+                if (dbConnection.State == ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                }
+                dbConnection.Open();
             }
-            dbConnection.Open();
-            
-
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -29,7 +36,8 @@ namespace ResearchConference
             DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "Insert into Comments(Comments) values('"+TextBox1.Text+"')";
+            string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+            command.CommandText = "Insert into Comments(Comments,PaperID) values('"+TextBox1.Text+"' , '"+currentSessionPaperID+"')";
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
 
