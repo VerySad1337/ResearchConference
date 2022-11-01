@@ -37,7 +37,7 @@ namespace ResearchConference
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
             string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-            command.CommandText = "Insert into Comments(Comments,PaperID) values('"+TextBox1.Text+"' , '"+currentSessionPaperID+"')";
+            command.CommandText = "Insert into Comments(Comments,PaperID,CreatedDate ) values('"+TextBox1.Text+"' , '"+currentSessionPaperID+"', '"+time+"')";
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
 
