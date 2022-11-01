@@ -16,6 +16,11 @@ namespace ResearchConference
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Session["UserID"] == null)
+            {
+                Response.Redirect("ReviewerLogin.aspx");
+            }
+
             if (dbConnection.State == ConnectionState.Open)
             {
                 dbConnection.Close();
@@ -25,6 +30,7 @@ namespace ResearchConference
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            string currentSessionUserID = Session["UserID"].ToString();
             DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;

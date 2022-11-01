@@ -50,7 +50,7 @@
                                     <asp:Literal ID="lblFailureText" runat="server"></asp:Literal>
                                 </div>
                                 <div class="form-group">
-                                    <asp:Button class="btn btn-success btn-block btn-lg" ID="btnLogin" runat="server" Text="Login" CommandName="Login" ValidationGroup="Login1" />
+                                    <asp:Button class="btn btn-success btn-block btn-lg" ID="btnLogin" runat="server" Text="Login" CommandName="Login" ValidationGroup="Login1" OnClick="btnLogin_Click1" />
                                 </div>
                                 <div class="form-group">
                                     <a href="usersignup.aspx">

@@ -15,11 +15,17 @@ namespace ResearchConference
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if(Session["userid"] == null)
+            {
+                Response.Redirect("reviewerlogin.aspx");
+            }
             if (dbConnection.State == ConnectionState.Open)
             {
                 dbConnection.Close();
             }
-            string queryResult = "Select MaxReview from users where UserID = 3";
+            string currentSessionUserID = Session["UserID"].ToString();
+            string queryResult = "Select MaxReview from users where UserID = " + currentSessionUserID;
             SqlCommand displayResult = new SqlCommand(queryResult,dbConnection);
             dbConnection.Open();
             string checkForNull = displayResult.ExecuteScalar().ToString();
@@ -38,9 +44,10 @@ namespace ResearchConference
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            String currentSessionUserID = Session["UserID"].ToString();
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "UPDATE Users SET MaxReview = '"+TextBox1.Text+"' WHERE UserID = 3";
+            command.CommandText = "UPDATE Users SET MaxReview = '"+TextBox1.Text+"' WHERE UserID = " + currentSessionUserID;
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
 
