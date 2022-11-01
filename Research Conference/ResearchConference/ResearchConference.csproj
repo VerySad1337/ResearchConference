@@ -130,8 +130,10 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="imgs\generaluser.png" />
     <Content Include="LoginPage.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="PaperAssignment.aspx" />
     <Content Include="PublishPaper.aspx" />
+    <Content Include="ReviewerLogin.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -224,6 +226,13 @@
     <Compile Include="LoginPage.aspx.designer.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PaperAssignment.aspx.cs">
       <DependentUpon>PaperAssignment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -238,6 +247,13 @@
     </Compile>
     <Compile Include="PublishPaper.aspx.designer.cs">
       <DependentUpon>PublishPaper.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReviewerLogin.aspx.cs">
+      <DependentUpon>ReviewerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReviewerLogin.aspx.designer.cs">
+      <DependentUpon>ReviewerLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

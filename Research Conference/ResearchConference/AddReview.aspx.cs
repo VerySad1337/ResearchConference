@@ -15,6 +15,11 @@ namespace ResearchConference
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Session["userid"] == null)
+            {
+                Response.Redirect("reviewlogin.aspx");
+            }
+
             if (Session["PaperIDFromRow"] != null)
             {
                 string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
@@ -50,13 +55,14 @@ namespace ResearchConference
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            string currentSessionUserID = Session["UserID"].ToString();
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
             string ratingDropDown = DropDownList1.Text;
             string convertGradesToGradeIDQuery = "Select GradeID from Gradings where Grades =" + "'"+ratingDropDown+"'";
             SqlCommand convertGradesToGradeID = new SqlCommand(convertGradesToGradeIDQuery, dbConnection);
             string convertedGradeID = convertGradesToGradeID.ExecuteScalar().ToString();
-            command.CommandText = "UPDATE Allocation SET GradeID = " + convertedGradeID + " where paperid = " + Session["PaperIDFromRow"].ToString();
+            command.CommandText = "UPDATE Allocation SET GradeID = " + convertedGradeID + ",UserID = "+currentSessionUserID+" where paperid = " + Session["PaperIDFromRow"].ToString();
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
         }

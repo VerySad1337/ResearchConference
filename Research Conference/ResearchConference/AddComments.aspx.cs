@@ -15,6 +15,11 @@ namespace ResearchConference
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserID"] == null)
+            {
+                Response.Redirect("Reviewlogin.aspx");
+            }
+ 
             if (Session["PaperIDFromRow"] != null)
             {
                 string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
@@ -29,15 +34,21 @@ namespace ResearchConference
                 }
                 dbConnection.Open();
             }
+            else
+            {
+                Label3.Text = "Nothing assigned for you";
+               
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            string currentSessionUserID = Session["userid"].ToString();
             DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
             string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-            command.CommandText = "Insert into Comments(Comments,PaperID,CreatedDate ) values('"+TextBox1.Text+"' , '"+currentSessionPaperID+"', '"+time+"')";
+            command.CommandText = "Insert into Comments(Comments,PaperID,CreatedDate,UserID ) values('"+TextBox1.Text+"' , '"+currentSessionPaperID+"', '"+time+"', '"+currentSessionUserID+"')";
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
 

@@ -16,15 +16,29 @@ namespace ResearchConference
         string dbConnection = @"Data Source=DESKTOP-0R2NCQ5;Initial Catalog = RCMS; Integrated Security = True";
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (SqlConnection sqlcon = new SqlConnection(dbConnection))
+            if (Session["UserID"] == null)
             {
-                sqlcon.Open();
-                SqlDataAdapter sqlda = new SqlDataAdapter("SELECT Allocation.AllocationID, Allocation.PaperID,  Allocation.UserID,Users.Name, Allocation.GradeID, Paper.Date, Paper.PaperTitle, Paper.URL, Allocation.PaperID as session FROM (Allocation  INNER JOIN Paper ON Allocation.PaperID = Paper.PaperID) INNER JOIN USERS on Allocation.UserID = Users.UserID ", sqlcon);
+                Response.Redirect("ReviewerLogin.aspx");
+            }
+            else
+            {
 
-                DataTable dtbl = new DataTable();
-                sqlda.Fill(dtbl);
-                GridView2.DataSource = dtbl;
-                GridView2.DataBind();
+                using (SqlConnection sqlcon = new SqlConnection(dbConnection))
+                {
+                    string currentSessionUserID = Session["UserID"].ToString();
+                    sqlcon.Open();
+                    SqlDataAdapter sqlda = new SqlDataAdapter("SELECT Allocation.AllocationID, Allocation.PaperID,  Allocation.UserID,Users.Name, Allocation.GradeID, Paper.Date, Paper.PaperTitle, Paper.URL, Allocation.PaperID as session FROM (Allocation  INNER JOIN Paper ON Allocation.PaperID = Paper.PaperID) INNER JOIN USERS on Allocation.UserID = Users.UserID where Allocation.UserID = " + currentSessionUserID  , sqlcon);
+
+                    DataTable dtbl = new DataTable();
+                    sqlda.Fill(dtbl);
+                    GridView2.DataSource = dtbl;
+                    GridView2.DataBind();
+
+                    if(dtbl.Rows.Count == 0)
+                    {
+                        Label3.Text = "No paper assigned to you";
+                    }
+                }
             }
 
         }
