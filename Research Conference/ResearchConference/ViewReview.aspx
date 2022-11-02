@@ -9,11 +9,11 @@
         <Columns>
             <asp:BoundField DataField="AllocationID" HeaderText="AllocationID" InsertVisible="False" ReadOnly="True" SortExpression="AllocationID" />
             <asp:BoundField DataField="PaperID" HeaderText="PaperID" SortExpression="PaperID" />
-            <asp:BoundField DataField="UserID" HeaderText="UserID" SortExpression="UserID" />
-            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-            <asp:BoundField DataField="GradeID" HeaderText="GradeID" SortExpression="GradeID" />
+            <%--<asp:BoundField DataField="UserID" HeaderText="UserID" SortExpression="UserID" />
+            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" /> --%>
             <asp:BoundField DataField="PaperTitle" HeaderText="PaperTitle" SortExpression="PaperTitle" />
             <asp:BoundField DataField="URL" HeaderText="URL" SortExpression="URL" />
+            <asp:BoundField DataField="GradeID" HeaderText="GradeID" SortExpression="GradeID" />
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:LinkButton ID="giveReview" Text ="Give Review" runat ="server" CommandArgument='<%# Eval("session") %>' OnClick ="giveReview_Click" />                 

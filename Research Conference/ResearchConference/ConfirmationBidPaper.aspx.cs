@@ -66,18 +66,35 @@ namespace ResearchConference
                 int ifExceed = int.Parse(myQuery.ExecuteScalar().ToString());
                 int currentreviewcount = int.Parse(myQuery2.ExecuteScalar().ToString());
 
-                if (currentreviewcount < ifExceed)
+                SqlCommand myQuery3 = dbConnection.CreateCommand();
+                myQuery3.CommandType = CommandType.Text;
+                myQuery3.CommandText = "Select UserIDPosted from paper where paperid=" + currentPaperID;
+                myQuery3.ExecuteNonQuery();
+                int checkForMyOwnPaper = int.Parse(myQuery3.ExecuteScalar().ToString());
+
+
+                int convertToIntForCurrentUserID = int.Parse(currentSessionUserID);
+
+                if (convertToIntForCurrentUserID == checkForMyOwnPaper)
                 {
-                    SqlCommand commands = dbConnection.CreateCommand();
-                    commands.CommandType = CommandType.Text;
-                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                    commands.CommandText = "Insert into Allocation(PaperID,UserID ) values('" + currentSessionPaperID + "' , '" + currentSessionUserID + "')";
-                    commands.ExecuteNonQuery();
-                    Response.Redirect("~/Successful.aspx");
+                    Label3.Text = "You cant bid on your own paper";
                 }
                 else
                 {
-                    Label3.Text = "Exceeded your max limit";
+
+                    if (currentreviewcount < ifExceed)
+                    {
+                        SqlCommand commands = dbConnection.CreateCommand();
+                        commands.CommandType = CommandType.Text;
+                        string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                        commands.CommandText = "Insert into Allocation(PaperID,UserID ) values('" + currentSessionPaperID + "' , '" + currentSessionUserID + "')";
+                        commands.ExecuteNonQuery();
+                        Response.Redirect("~/Successful.aspx");
+                    }
+                    else
+                    {
+                        Label3.Text = "Exceeded your max limit";
+                    }
                 }
             }
             else
