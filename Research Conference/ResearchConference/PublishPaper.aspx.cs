@@ -34,7 +34,7 @@ namespace ResearchConference
             DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "Insert into Paper(PaperTitle,URL, Date) values('" + TextBox1.Text + "', '"+TextBox2.Text+"' , '"+time+"')";
+            command.CommandText = "Insert into Paper(PaperTitle,URL, Date,UserIDPosted) values('" + TextBox1.Text + "', '" + TextBox2.Text + "' , '" + time + "' , '" + currentSessionUserID+"')";
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
 
