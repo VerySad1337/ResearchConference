@@ -9,11 +9,41 @@ using System.Data.SqlClient;
 using System.Configuration;
 
 namespace ResearchConference
+
 {
     public partial class ViewReview : System.Web.UI.Page
     {
-        //SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-        string dbConnection = @"Data Source=DESKTOP-0R2NCQ5;Initial Catalog = RCMS; Integrated Security = True";
+        SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+        class viewReviewController
+        {
+            public SqlDataAdapter viewReviewTable(string getUserID)
+            {
+                SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+                dbConnections.Open();
+                string currentSessionID = getUserID;             
+                SqlDataAdapter SQLQuery = new SqlDataAdapter("SELECT Allocation.AllocationID, Allocation.PaperID,  Allocation.UserID,Users.Name, Allocation.GradeID, Paper.Date, Paper.PaperTitle, Paper.URL, Allocation.PaperID as session FROM (Allocation  INNER JOIN Paper ON Allocation.PaperID = Paper.PaperID) INNER JOIN USERS on Allocation.UserID = Users.UserID where Allocation.UserID = " + currentSessionID, dbConnections);
+                dbConnections.Close();
+                return SQLQuery;
+            }
+
+        }
+
+        class viewReviewEntity
+        {
+            int userID;
+            int paperID;
+
+            public void getUserID(int userid)
+            {
+                userid = 0; 
+            }
+
+            public void getPaperID(int PaperID)
+            {
+                paperID = 0;
+            }
+
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserID"] == null)
@@ -22,24 +52,26 @@ namespace ResearchConference
             }
             else
             {
-
-                using (SqlConnection sqlcon = new SqlConnection(dbConnection))
+                if (int.Parse(Session["roleid"].ToString()) == 3)
                 {
-                    string currentSessionUserID = Session["UserID"].ToString();
-                    sqlcon.Open();
-                    SqlDataAdapter sqlda = new SqlDataAdapter("SELECT Allocation.AllocationID, Allocation.PaperID,  Allocation.UserID,Users.Name, Allocation.GradeID, Paper.Date, Paper.PaperTitle, Paper.URL, Allocation.PaperID as session FROM (Allocation  INNER JOIN Paper ON Allocation.PaperID = Paper.PaperID) INNER JOIN USERS on Allocation.UserID = Users.UserID where Allocation.UserID = " + currentSessionUserID  , sqlcon);
-
-                    DataTable dtbl = new DataTable();
-                    sqlda.Fill(dtbl);
-                    GridView2.DataSource = dtbl;
-                    GridView2.DataBind();
-
-                    if(dtbl.Rows.Count == 0)
+                    dbConnection.Open();
+                    string myUserID = Session["UserID"].ToString();
+                    viewReviewController createTable = new viewReviewController();
+                    DataTable myDataTable = new DataTable();
+                    using (dbConnection)
                     {
-                        Label3.Text = "No paper assigned to you";
+                        createTable.viewReviewTable(myUserID).Fill(myDataTable);
+                        GridView2.DataSource = myDataTable;
+                        GridView2.DataBind();
+                        dbConnection.Close();
                     }
                 }
-            }
+                else
+                {
+                    Response.Write("Invalid User");
+                    Label3.Visible = false;
+                }
+            }          
 
         }
 
