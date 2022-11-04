@@ -32,14 +32,11 @@ namespace ResearchConference
 
         class viewReviewEntity
         {
-            string storagePaperID;
-
             public string getUserID(string fromControllerUserID)
             {
                 string currentSessionID = fromControllerUserID;
                 return currentSessionID; 
             }
-
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -65,8 +62,7 @@ namespace ResearchConference
                 }
                 else
                 {
-                    Response.Write("Invalid User");
-                    Label3.Visible = false;
+                    Label3.Text = "Why are you here? You are not reviewer!";
                 }
             }          
 
