@@ -20,8 +20,10 @@ namespace ResearchConference
             {
                 SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
                 dbConnections.Open();
-                string currentSessionID = getUserID;             
-                SqlDataAdapter SQLQuery = new SqlDataAdapter("SELECT Allocation.AllocationID, Allocation.PaperID,  Allocation.UserID,Users.Name, Allocation.GradeID, Paper.Date, Paper.PaperTitle, Paper.URL, Allocation.PaperID as session FROM (Allocation  INNER JOIN Paper ON Allocation.PaperID = Paper.PaperID) INNER JOIN USERS on Allocation.UserID = Users.UserID where Allocation.UserID = " + currentSessionID, dbConnections);
+                string currentSessionID = getUserID;
+                viewReviewEntity myEntity = new viewReviewEntity(); //Dont Make any sense if u mark, but you require BCE!.
+                string iDontUnderstandWhy = myEntity.getUserID(currentSessionID); //Dont make sense with BCE, slowing down the operation!
+                SqlDataAdapter SQLQuery = new SqlDataAdapter("SELECT Allocation.AllocationID, Allocation.PaperID,  Allocation.UserID,Users.Name, Allocation.GradeID, Paper.Date, Paper.PaperTitle, Paper.URL, Allocation.PaperID as session FROM (Allocation  INNER JOIN Paper ON Allocation.PaperID = Paper.PaperID) INNER JOIN USERS on Allocation.UserID = Users.UserID where Allocation.UserID = " + iDontUnderstandWhy, dbConnections);
                 dbConnections.Close();
                 return SQLQuery;
             }
@@ -30,19 +32,11 @@ namespace ResearchConference
 
         class viewReviewEntity
         {
-            int userID;
-            int paperID;
-
-            public void getUserID(int userid)
+            public string getUserID(string fromControllerUserID)
             {
-                userid = 0; 
+                string currentSessionID = fromControllerUserID;
+                return currentSessionID; 
             }
-
-            public void getPaperID(int PaperID)
-            {
-                paperID = 0;
-            }
-
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -68,8 +62,7 @@ namespace ResearchConference
                 }
                 else
                 {
-                    Response.Write("Invalid User");
-                    Label3.Visible = false;
+                    Label3.Text = "Why are you here? You are not reviewer!";
                 }
             }          
 
