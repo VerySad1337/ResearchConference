@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ResearchConference {
-    
-    
-    public partial class PublishPaper {
-        
+namespace ResearchConference
+{
+
+
+    public partial class PublishPaper
+    {
+
         /// <summary>
         /// Label3 control.
         /// </summary>
@@ -20,34 +22,25 @@ namespace ResearchConference {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label3;
-        
+
         /// <summary>
-        /// Label4 control.
+        /// PaperTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-        
+        protected global::System.Web.UI.WebControls.TextBox PaperTitle;
+
         /// <summary>
-        /// TextBox1 control.
+        /// titleValidate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
-        
-        /// <summary>
-        /// Label5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
-        
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator titleValidate;
+
         /// <summary>
         /// TextBox2 control.
         /// </summary>
@@ -56,7 +49,16 @@ namespace ResearchConference {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
-        
+
+        /// <summary>
+        /// urlValidate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator urlValidate;
+
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace ResearchConference {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-        
+
         /// <summary>
         /// Button2 control.
         /// </summary>
