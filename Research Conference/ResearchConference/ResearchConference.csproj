@@ -106,12 +106,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AddComments.aspx" />
+    <Content Include="AddReview.aspx" />
+    <Content Include="BidForPaper.aspx" />
+    <Content Include="ConfirmationBidPaper.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CurrentMaxReview.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -127,7 +132,10 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="imgs\generaluser.png" />
     <Content Include="LoginPage.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="PaperAssignment.aspx" />
+    <Content Include="PublishPaper.aspx" />
+    <Content Include="ReviewerLogin.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -157,12 +165,29 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="Successful.aspx" />
+    <Content Include="ViewComments.aspx" />
+    <Content Include="ViewReview.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddComments.aspx.cs">
+      <DependentUpon>AddComments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddComments.aspx.designer.cs">
+      <DependentUpon>AddComments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddReview.aspx.cs">
+      <DependentUpon>AddReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddReview.aspx.designer.cs">
+      <DependentUpon>AddReview.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -172,12 +197,33 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BidForPaper.aspx.cs">
+      <DependentUpon>BidForPaper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BidForPaper.aspx.designer.cs">
+      <DependentUpon>BidForPaper.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmationBidPaper.aspx.cs">
+      <DependentUpon>ConfirmationBidPaper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfirmationBidPaper.aspx.designer.cs">
+      <DependentUpon>ConfirmationBidPaper.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentMaxReview.aspx.cs">
+      <DependentUpon>CurrentMaxReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CurrentMaxReview.aspx.designer.cs">
+      <DependentUpon>CurrentMaxReview.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -196,6 +242,13 @@
     <Compile Include="LoginPage.aspx.designer.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PaperAssignment.aspx.cs">
       <DependentUpon>PaperAssignment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -204,6 +257,20 @@
       <DependentUpon>PaperAssignment.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublishPaper.aspx.cs">
+      <DependentUpon>PublishPaper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PublishPaper.aspx.designer.cs">
+      <DependentUpon>PublishPaper.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReviewerLogin.aspx.cs">
+      <DependentUpon>ReviewerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReviewerLogin.aspx.designer.cs">
+      <DependentUpon>ReviewerLogin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -217,6 +284,27 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Successful.aspx.cs">
+      <DependentUpon>Successful.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Successful.aspx.designer.cs">
+      <DependentUpon>Successful.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewComments.aspx.cs">
+      <DependentUpon>ViewComments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewComments.aspx.designer.cs">
+      <DependentUpon>ViewComments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewReview.aspx.cs">
+      <DependentUpon>ViewReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewReview.aspx.designer.cs">
+      <DependentUpon>ViewReview.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

@@ -23,7 +23,7 @@ namespace ResearchConference
             bool rememberMeSet = (Login1.FindControl("chkRememberMe") as CheckBox).Checked;
             Literal failureText = (Login1.FindControl("lblFailureText") as Literal);
             int userId = 0;
-            string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
+            string constr = ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand("Validate_User"))
@@ -49,6 +49,16 @@ namespace ResearchConference
                         break;
                 }
             }
+        }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnLogin_Click1(object sender, EventArgs e)
+        {
+
         }
     }
 }
