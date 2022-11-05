@@ -23,7 +23,7 @@ namespace ResearchConference
             bool rememberMeSet = (Login1.FindControl("chkRememberMe") as CheckBox).Checked;
             Literal failureText = (Login1.FindControl("lblFailureText") as Literal);
             int userId = 0;
-            string constr = ConfigurationManager.ConnectionStrings["RCMS"].ConnectionString;
+            string constr = ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand("Validate_User"))
