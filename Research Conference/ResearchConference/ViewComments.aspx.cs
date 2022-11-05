@@ -12,36 +12,67 @@ namespace ResearchConference
 {
     public partial class ViewComments : System.Web.UI.Page
     {
-        string dbConnection = @"Data Source=DESKTOP-0R2NCQ5;Initial Catalog = RCMS; Integrated Security = True";
-        protected void Page_Load(object sender, EventArgs e)
+        SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+        class ViewCommentController
         {
-            
+            public SqlDataAdapter displayComments (string getPaperID)
             {
-                if (Session["PaperIDFromRow"] != null)
-                {
-                    using (SqlConnection sqlcon = new SqlConnection(dbConnection))
-                    {
-                        string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                        sqlcon.Open();
-                        SqlDataAdapter sqlda = new SqlDataAdapter("SELECT Comments.Userid, Comments.CommentID as CommentID ,Comments.Comments as Comments, Users.Name as Name from Comments inner join users on comments.userid = users.userid where Comments.PaperID ="+ currentSessionPaperID , sqlcon);
-                        DataTable dtbl = new DataTable();
-                        sqlda.Fill(dtbl);
-                        GridView2.DataSource = dtbl;
-                        GridView2.DataBind();
+                SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+                dbConnections.Open();
+                string currentSessionID = getPaperID;
+                viewCommentEntity myEntity = new viewCommentEntity(); //Dont Make any sense if u mark, but you require BCE!.
+                string iDontUnderstandWhy = myEntity.getPaperID(currentSessionID); //Dont make sense with BCE, slowing down the operation!               
+                SqlDataAdapter SQLQuery = new SqlDataAdapter("SELECT Comments.Userid, Comments.CommentID as CommentID ,Comments.Comments as Comments, Users.Name as Name from Comments inner join users on comments.userid = users.userid where Comments.PaperID =" +iDontUnderstandWhy, dbConnections);
+                dbConnections.Close();
+                return SQLQuery;
+            }
+        }
+        class viewCommentEntity
+        {
 
-                        string queryResult2 = "Select Comments.PaperID from Comments where paperid = " + currentSessionPaperID;
-                        SqlCommand displayPaperTitle = new SqlCommand(queryResult2, sqlcon);
-                        string checkForNull = displayPaperTitle.ExecuteScalar().ToString();
-                        if (string.IsNullOrEmpty(checkForNull))
-                        {
-                            Label3.Text = "No comments as of now!";
-                        }
-                    }
+            public string getPaperID(string fromControllerGetPaperID)
+            {
+                string currentPaperID = fromControllerGetPaperID;
+                return currentPaperID;
+            }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {            
+            {
+
+                if (Session["UserID"] == null)
+                {
+                    Response.Redirect("ReviewerLogin.aspx");
                 }
                 else
                 {
-                    Label3.Text = "Please view the comments the proper way";
-                }
+                    if (int.Parse(Session["roleid"].ToString()) == 3)
+                    {
+                        dbConnection.Open();
+                        string myUserID = Session["UserID"].ToString();
+                        ViewCommentController createTable = new ViewCommentController();
+                        string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                        DataTable myDataTable = new DataTable();
+                        DataTable myDataTable1 = new DataTable();
+                        using (dbConnection)
+                        {
+
+                            createTable.displayComments(currentSessionPaperID).Fill(myDataTable);
+                            GridView2.DataSource = myDataTable;
+                            GridView2.DataBind();
+                            if(myDataTable.Rows.Count == 0)
+                            {
+                                Label3.Text = "No comments as of now";
+                            }
+                            dbConnection.Close();
+                        }
+                    }
+                    else
+                    {
+                        Label3.Text = "Why are you here? You are not reviewer!";
+                    }
+                }              
             }
         }
         protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
