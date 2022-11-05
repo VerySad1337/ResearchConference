@@ -22,6 +22,7 @@ namespace ResearchConference
                 dbConnections.Open();
                 addCommentEntity displayCurrentPaperTitle = new addCommentEntity();
                 string sessionPaperID = currentSessionPaperID;
+                dbConnections.Close();
                 return displayCurrentPaperTitle.getPaperTitle(sessionPaperID);
             }
 
@@ -107,7 +108,7 @@ namespace ResearchConference
             string currentPaperID = Session["PaperIDFromRow"].ToString();
             string currentSessionUserID = Session["userid"].ToString();
             addCommentsController addNewComments = new addCommentsController();
-            if (TextBox1.Text == null)
+            if (TextBox1.Text != null)
             {
                 addNewComments.storeComments(comments, currentPaperID, currentSessionUserID);
                 Response.Redirect("~/Successful.aspx");
