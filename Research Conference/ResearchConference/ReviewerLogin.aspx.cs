@@ -12,6 +12,40 @@ namespace ResearchConference
 {
     public partial class ReviewerLogin : System.Web.UI.Page
     {
+
+        class loginController
+        {
+            SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+            public DataTable loginValidationController(string LoginID, string Passwords)
+            {
+                string loginID = LoginID;
+                string password = Passwords;
+                dbConnection.Open();
+                loginEntity myLogin = new loginEntity();
+                DataTable myData = new DataTable();
+                myLogin.getUserID(loginID, password).Fill(myData);
+                return myData;
+            }
+           
+        }
+
+        class loginEntity
+        {
+            SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+            public SqlDataAdapter getUserID(string Loginid, string Passwords)
+            {
+                dbConnection.Open();
+                string login = Loginid;
+                string password = Passwords;
+                SqlCommand myCommand = dbConnection.CreateCommand();
+                myCommand.CommandType = CommandType.Text;
+                myCommand.CommandText = "Select * from users where username='" + login + "' and password = '" + password + "'";
+                myCommand.ExecuteNonQuery();                
+                SqlDataAdapter myDataAdapter = new SqlDataAdapter(myCommand);
+                dbConnection.Close();
+                return myDataAdapter;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -20,22 +54,19 @@ namespace ResearchConference
         protected void Button1_Click(object sender, EventArgs e)
         {
             SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-            dbConnection.Open();
-            SqlCommand myCommand = dbConnection.CreateCommand();
-            myCommand.CommandType = CommandType.Text;
-            myCommand.CommandText= "Select * from Users where username='" +TextBox1.Text.Trim() +"' and password = '"+ TextBox2.Text.Trim() + "'";
-            myCommand.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(myCommand);
-            da.Fill(dt);
 
-            foreach(DataRow dr in dt.Rows)
+            string UserID = TextBox1.Text;
+            string password = TextBox2.Text;
+            loginController verify = new loginController();
+
+            foreach (DataRow dr in verify.loginValidationController(UserID, password).Rows)
             {
                 Session["userid"] = dr["userid"].ToString();
                 Session["name"] = dr["name"].ToString();
                 Session["roleid"] = dr["roleid"].ToString();
                 string storeUserRole = dr["roleid"].ToString();
                 int checkUserRole = int.Parse(storeUserRole);
+                Response.Write(checkUserRole);
                 if (checkUserRole == 3)
                 {
                     Response.Redirect("ViewReview.aspx");
@@ -44,16 +75,9 @@ namespace ResearchConference
                 {
                     Response.Redirect("Successful.aspx");
                 }
-                else
-                {
-                    Label2.Text = "Wrong username / password";
-                }
-
             }
-
             dbConnection.Close();
             Label2.Text = "Invalid ID / Password";
-
         }
     }
 }
