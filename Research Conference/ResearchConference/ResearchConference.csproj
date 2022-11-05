@@ -129,11 +129,24 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="imgs\generaluser.png" />
     <Content Include="LoginPage.aspx" />
     <Content Include="Logout.aspx" />
-    <Content Include="PaperAssignment.aspx" />
+    <Content Include="PaperManagement\PaperAssignment.aspx" />
+    <Content Include="PaperManagement\ViewComments.aspx" />
+    <Content Include="PaperManagement\ViewPage.aspx" />
     <Content Include="PublishPaper.aspx" />
     <Content Include="ReviewerLogin.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -225,6 +238,11 @@
     <Compile Include="CurrentMaxReview.aspx.designer.cs">
       <DependentUpon>CurrentMaxReview.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -249,12 +267,26 @@
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PaperAssignment.aspx.cs">
+    <Compile Include="PaperManagement\PaperAssignment.aspx.cs">
       <DependentUpon>PaperAssignment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PaperAssignment.aspx.designer.cs">
+    <Compile Include="PaperManagement\PaperAssignment.aspx.designer.cs">
       <DependentUpon>PaperAssignment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaperManagement\ViewComments.aspx.cs">
+      <DependentUpon>ViewComments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaperManagement\ViewComments.aspx.designer.cs">
+      <DependentUpon>ViewComments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaperManagement\ViewPage.aspx.cs">
+      <DependentUpon>ViewPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaperManagement\ViewPage.aspx.designer.cs">
+      <DependentUpon>ViewPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishPaper.aspx.cs">

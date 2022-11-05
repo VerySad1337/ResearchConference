@@ -23,7 +23,7 @@ namespace ResearchConference
             dbConnection.Open();
             SqlCommand myCommand = dbConnection.CreateCommand();
             myCommand.CommandType = CommandType.Text;
-            myCommand.CommandText= "Select * from users where username='" +TextBox1.Text+"' and password = '"+ TextBox2.Text+"'";
+            myCommand.CommandText= "Select * from Users where username='" +TextBox1.Text.Trim() +"' and password = '"+ TextBox2.Text.Trim() + "'";
             myCommand.ExecuteNonQuery();
             DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter(myCommand);

@@ -12,14 +12,15 @@ namespace ResearchConference
 {
     public partial class ViewComments : System.Web.UI.Page
     {
-        string dbConnection = @"Data Source=DESKTOP-0R2NCQ5;Initial Catalog = RCMS; Integrated Security = True";
+        //string dbConnection = @"Data Source=LAPTOP-E8Q069IQ\MSSQLSERVER01;Initial Catalog = RCMS; Integrated Security = True";
+        SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
             
             {
                 if (Session["PaperIDFromRow"] != null)
                 {
-                    using (SqlConnection sqlcon = new SqlConnection(dbConnection))
+                    using (SqlConnection sqlcon = dbConnection)
                     {
                         string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
                         sqlcon.Open();
