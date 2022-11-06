@@ -17,7 +17,7 @@ namespace ResearchConference
         {
             SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
             
-            public SqlCommand displayCurrentPaperTitle (string currentSessionPaperID)
+            public string displayCurrentPaperTitle (string currentSessionPaperID)
             {
                 dbConnections.Open();
                 addCommentEntity displayCurrentPaperTitle = new addCommentEntity();
@@ -41,13 +41,15 @@ namespace ResearchConference
         class addCommentEntity
         {
             SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-            public SqlCommand getPaperTitle(string getPaperID)
+            public string getPaperTitle(string getPaperID)
             {
                 dbConnections.Open();
                 string currentPaperSessionID = getPaperID;
                 addCommentEntity myEntity = new addCommentEntity(); //Dont Make any sense if u mark, but you require BCE!.             
                 SqlCommand SQLQuery = new SqlCommand("Select Paper.PaperTitle from Paper INNER JOIN Allocation On Allocation.PaperID = Paper.PaperID where Paper.PaperID = " + currentPaperSessionID, dbConnections);
-                return SQLQuery;
+                string myResult = SQLQuery.ExecuteScalar().ToString();
+                dbConnections.Close();
+                return myResult;
             }
 
             public void setComments(string comments, string currentSessionPaperID, string currentSessionUserID)
@@ -80,7 +82,7 @@ namespace ResearchConference
                     addCommentsController myController = new addCommentsController();
                     if (currentSessionPaperID != null)
                     {
-                        Label3.Text = "Currently giving comments for: " + myController.displayCurrentPaperTitle(currentSessionPaperID).ExecuteScalar().ToString();
+                        Label3.Text = "Currently giving comments for: " + myController.displayCurrentPaperTitle(currentSessionPaperID);
                         
                     }
                     else
@@ -104,18 +106,19 @@ namespace ResearchConference
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string comments = TextBox1.Text;
+            string comments = TextBox1.Text.Trim();
             string currentPaperID = Session["PaperIDFromRow"].ToString();
             string currentSessionUserID = Session["userid"].ToString();
             addCommentsController addNewComments = new addCommentsController();
-            if (TextBox1.Text != null)
+            if (string.IsNullOrEmpty(TextBox1.Text))
             {
-                addNewComments.storeComments(comments, currentPaperID, currentSessionUserID);
-                Response.Redirect("~/Successful.aspx");
+                HyperLink1.Text = "Enter some comments!";
             }
             else
             {
-                HyperLink1.Text = "Enter some comments!";
+                addNewComments.storeComments(comments, currentPaperID, currentSessionUserID);
+                Response.Redirect("~/Successful.aspx");
+                
             }
            
 

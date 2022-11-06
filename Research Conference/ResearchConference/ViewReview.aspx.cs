@@ -58,6 +58,11 @@ namespace ResearchConference
                         GridView2.DataSource = myDataTable;
                         GridView2.DataBind();
                         dbConnection.Close();
+
+                        if(myDataTable.Rows.Count == 0)
+                        {
+                            Label3.Text = "No paper assigned to you";
+                        }
                     }
                 }
                 else
