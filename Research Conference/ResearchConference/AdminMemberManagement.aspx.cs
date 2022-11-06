@@ -7,7 +7,7 @@ namespace ResearchConference
 {
     public partial class AdminMemberManagement : System.Web.UI.Page
     {
-        string constr = System.Configuration.ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString;
+        string constr = System.Configuration.ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
         
         protected void Page_Load(object sender, EventArgs e)
         {
