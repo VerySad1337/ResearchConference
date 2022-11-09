@@ -20,7 +20,6 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1.3
     - name: Setup NuGet.exe for use with actions
       uses: NuGet/setup-nuget@v1.1.1
-    - name: restore-nuget-packages
-      run: nuget restore Research Conference/ResearchConference.sln      
+    
     - name: Build solution
       run: msbuild Research Conference/ResearchConference.sln
