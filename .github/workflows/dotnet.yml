@@ -22,4 +22,4 @@ jobs:
       uses: NuGet/setup-nuget@v1.1.1
     
     - name: Build solution
-      run: msbuild Research Conference/ResearchConference.sln /p:Configuration=Release  
+      run: msbuild "Research Conference/ResearchConference.sln" /p:Configuration=Release  
