@@ -111,7 +111,7 @@ namespace ResearchConference
                         command.Parameters.AddWithValue("@Username", TxtUserName.Text.ToString());
                         command.Parameters.AddWithValue("@Name", TxtDisplayName.Text.ToString());
                         command.Parameters.AddWithValue("@Password", txtPassword.Text.ToString());
-                        command.Parameters.AddWithValue("@Salt", TxtSalt.Text.ToString());
+                        command.Parameters.AddWithValue("@Salt", maxid+1);
                         command.Parameters.AddWithValue("@RoleID",Convert.ToInt32(ddRole.SelectedValue));
                         command.Parameters.AddWithValue("@MaxReview", (!string.IsNullOrEmpty(TxtMaxReview.Text)) ? "0" : TxtMaxReview.Text);
                         con.Open();
