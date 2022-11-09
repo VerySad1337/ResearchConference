@@ -52,7 +52,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav nav">
                         <li><a runat="server" href="~/LoginPage">Login Page</a></li>
-                        <li><a runat="server" href="~/PublishPaper">Submit Paper</a></li>
+                        <li><a runat="server" href="~/About">Submit Paper</a></li>
                         <li><a runat="server" href="~/Contact">View Reviews</a></li>
                         <li><a runat="server" href="~/Contact">Rate Reviews</a></li>
                         <li><a runat="server" href="~/Contact">Bid Paper</a></li>

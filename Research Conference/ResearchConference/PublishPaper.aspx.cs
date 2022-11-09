@@ -16,7 +16,7 @@ namespace ResearchConference
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserID"] == null)
+            if(Session["UserID"] == null)
             {
                 Response.Redirect("ReviewerLogin.aspx");
             }
@@ -34,11 +34,11 @@ namespace ResearchConference
             DateTime time = DateTime.Now;
             SqlCommand command = dbConnection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "Insert into Paper(PaperTitle,URL, Date,UserIDPosted) values('" + PaperTitle.Text + "', '" + TextBox2.Text + "' , '" + time + "' , '" + currentSessionUserID + "')";
+            command.CommandText = "Insert into Paper(PaperTitle,URL, Date,UserIDPosted) values('" + TextBox1.Text + "', '" + TextBox2.Text + "' , '" + time + "' , '" + currentSessionUserID+"')";
             command.ExecuteNonQuery();
             Response.Redirect("~/Successful.aspx");
 
-            PaperTitle.Text = "";
+            TextBox1.Text = "";
             TextBox2.Text = "";
         }
     }

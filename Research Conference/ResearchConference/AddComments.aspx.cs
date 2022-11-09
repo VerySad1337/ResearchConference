@@ -13,112 +13,46 @@ namespace ResearchConference
     public partial class AddComments : System.Web.UI.Page
     {
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-        class addCommentsController
-        {
-            SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-            
-            public SqlCommand displayCurrentPaperTitle (string currentSessionPaperID)
-            {
-                dbConnections.Open();
-                addCommentEntity displayCurrentPaperTitle = new addCommentEntity();
-                string sessionPaperID = currentSessionPaperID;
-                dbConnections.Close();
-                return displayCurrentPaperTitle.getPaperTitle(sessionPaperID);
-            }
-
-            public void storeComments(string comments, string currentSessionPaperID, string currentSessionUserID)
-            {
-                string PaperID = currentSessionPaperID;
-                string inputComments = comments;
-                string UserID = currentSessionUserID;
-                addCommentEntity addNewComment = new addCommentEntity();
-                addNewComment.setComments(inputComments,PaperID,UserID);
-            }
-
-
-        }
-
-        class addCommentEntity
-        {
-            SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-            public SqlCommand getPaperTitle(string getPaperID)
-            {
-                dbConnections.Open();
-                string currentPaperSessionID = getPaperID;
-                addCommentEntity myEntity = new addCommentEntity(); //Dont Make any sense if u mark, but you require BCE!.             
-                SqlCommand SQLQuery = new SqlCommand("Select Paper.PaperTitle from Paper INNER JOIN Allocation On Allocation.PaperID = Paper.PaperID where Paper.PaperID = " + currentPaperSessionID, dbConnections);
-                return SQLQuery;
-            }
-
-            public void setComments(string comments, string currentSessionPaperID, string currentSessionUserID)
-            {
-                dbConnections.Open();
-                string PaperID = currentSessionPaperID;
-                string inputComments = comments;
-                string UserID = currentSessionUserID;
-                DateTime currentTime = DateTime.Now;
-                SqlCommand insertCommand = dbConnections.CreateCommand();
-                insertCommand.CommandType = CommandType.Text;
-                insertCommand.CommandText = "Insert into Comments(Comments,PaperID,CreatedDate,UserID ) values('" +inputComments + "' , '" + PaperID + "', '" + currentTime + "', '" + UserID + "')";
-                insertCommand.ExecuteNonQuery();
-                dbConnections.Close();
-            }
-
-        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserID"] == null)
             {
-                Response.Redirect("Reviewerlogin.aspx");              
+                Response.Redirect("Reviewlogin.aspx");
             }
-
-            else
+ 
+            if (Session["PaperIDFromRow"] != null)
             {
-                if (int.Parse(Session["roleid"].ToString()) == 3)
+                string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                string queryResult2 = "Select Paper.PaperTitle from Paper INNER JOIN Allocation On Allocation.PaperID = Paper.PaperID where Paper.PaperID= " + currentSessionPaperID;
+                SqlCommand displayPaperTitle = new SqlCommand(queryResult2, dbConnection);
+                dbConnection.Open();
+                string outputPaperTitle = displayPaperTitle.ExecuteScalar().ToString();
+                Label3.Text = "Currently giving comments for: "+ outputPaperTitle;                
+                if (dbConnection.State == ConnectionState.Open)
                 {
-                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                    addCommentsController myController = new addCommentsController();
-                    if (currentSessionPaperID != null)
-                    {
-                        Label3.Text = "Currently giving comments for: " + myController.displayCurrentPaperTitle(currentSessionPaperID).ExecuteScalar().ToString();
-                        
-                    }
-                    else
-                    {
-                        Label3.Text = "Enter the proper way!";
-                        TextBox1.Visible = false;
-                        onSubmit.Visible = false;
-                        HyperLink1.Visible = false;
-                    }
                     dbConnection.Close();
                 }
-                else
-                {
-                    Label3.Text = "Why are you here? You are now reviewer!";
-                    TextBox1.Visible = false;
-                    onSubmit.Visible = false;
-                    HyperLink1.Visible = false;
-                }
+                dbConnection.Open();
+            }
+            else
+            {
+                Label3.Text = "Nothing assigned for you";
+               
             }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string comments = TextBox1.Text;
-            string currentPaperID = Session["PaperIDFromRow"].ToString();
             string currentSessionUserID = Session["userid"].ToString();
-            addCommentsController addNewComments = new addCommentsController();
-            if (TextBox1.Text != null)
-            {
-                addNewComments.storeComments(comments, currentPaperID, currentSessionUserID);
-                Response.Redirect("~/Successful.aspx");
-            }
-            else
-            {
-                HyperLink1.Text = "Enter some comments!";
-            }
-           
+            DateTime time = DateTime.Now;
+            SqlCommand command = dbConnection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+            command.CommandText = "Insert into Comments(Comments,PaperID,CreatedDate,UserID ) values('"+TextBox1.Text+"' , '"+currentSessionPaperID+"', '"+time+"', '"+currentSessionUserID+"')";
+            command.ExecuteNonQuery();
+            Response.Redirect("~/Successful.aspx");
 
+            TextBox1.Text = "";
         }
 
         protected void cancel_Click(object sender, EventArgs e)

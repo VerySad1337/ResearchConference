@@ -281,3 +281,4 @@ C:\inetpub\wwwroot\Research Conference\Research Conference\ResearchConference\ob
 C:\inetpub\wwwroot\Research Conference\Research Conference\ResearchConference\obj\Debug\ResearchConference.csproj.CopyComplete
 C:\inetpub\wwwroot\Research Conference\Research Conference\ResearchConference\obj\Debug\ResearchConference.dll
 C:\inetpub\wwwroot\Research Conference\Research Conference\ResearchConference\obj\Debug\ResearchConference.pdb
+C:\inetpub\wwwroot\Research Conference\Research Conference\ResearchConference\obj\Debug\ResearchConference.csprojAssemblyReference.cache
