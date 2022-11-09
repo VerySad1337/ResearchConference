@@ -4962,6 +4962,13 @@ a.badge:focus {
   color: inherit;
   background-color: #eee;
 }
+.displayTable {
+    margin: auto;
+    width: 50%;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
 .jumbotron h1,
 .jumbotron .h1 {
   color: inherit;
