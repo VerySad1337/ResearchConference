@@ -75,6 +75,7 @@ namespace ResearchConference
                     if (convertToIntForCurrentUserID == checkForMyOwnPaper)
                     {
                         string myoutput = "Error1"; //Cannot bid for your own paper!
+                        dbConnection.Close();
                         return myoutput;
                     }
                     else
@@ -88,12 +89,14 @@ namespace ResearchConference
                             commands.CommandText = "Insert into Allocation(PaperID,UserID ) values('" + currentSessionPaperID + "' , '" + currentSessionUserID + "')";
                             commands.ExecuteNonQuery();
                             string pass = "pass";
+                            dbConnection.Close();
                             return pass;
                             
                         }
                         else
                         {
                             string output = "Error2"; //Exceed max limit
+                            dbConnection.Close();
                             return output;
                         }
                     }
@@ -101,6 +104,7 @@ namespace ResearchConference
                 else
                 {
                     string output = "Error3"; //AlreadySelectThis
+                    dbConnection.Close();
                     return output;
                 }
             }
