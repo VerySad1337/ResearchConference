@@ -104,30 +104,41 @@ namespace ResearchConference
             {
                 Response.Redirect("reviewlogin.aspx");
             }
-
-            if (Session["PaperIDFromRow"] != null)
+            if (int.Parse(Session["roleid"].ToString()) == 3)
             {
-                string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                AddReviewController controller = new AddReviewController();
-                var myGrade  = controller.displayGrades(currentSessionPaperID);
-                if(myGrade == null)
+                if (Session["PaperIDFromRow"] != null)
                 {
-                    Label6.Text = "No rating given as of now!";
+                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                    AddReviewController controller = new AddReviewController();
+                    var myGrade = controller.displayGrades(currentSessionPaperID);
+                    if (myGrade == null)
+                    {
+                        Label6.Text = "No rating given as of now!";
+                    }
+                    else
+                    {
+                        Label6.Text = "Your current grading for this paper is : " + myGrade;
+                    }
+                    var thePaper = controller.displayPaperTitle(currentSessionPaperID);
+                    Label5.Text = "You are currently reviewing: " + thePaper;
                 }
                 else
                 {
-                    Label6.Text = "Your current grading for this paper is : " + myGrade;
+                    Label5.Text = "Visit this page through the proper workflow";
+                    Label6.Visible = false;
+                    DropDownList1.Visible = false;
+                    Button1.Visible = false;
+                    Label3.Visible = false;
                 }
-                var thePaper = controller.displayPaperTitle(currentSessionPaperID);
-                Label5.Text = "You are currently reviewing: " + thePaper;
             }
             else
             {
-                Label5.Text = "Visit this page through the proper workflow";
+                Label5.Text = "Shoo ! Shoo! You are not reviewer!";
                 Label6.Visible = false;
                 DropDownList1.Visible = false;
                 Button1.Visible = false;
                 Label3.Visible = false;
+
             }
         }
 

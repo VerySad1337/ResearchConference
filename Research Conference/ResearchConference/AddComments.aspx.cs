@@ -96,7 +96,7 @@ namespace ResearchConference
                 }
                 else
                 {
-                    Label3.Text = "Why are you here? You are now reviewer!";
+                    Label3.Text = "Why are you here? You are not reviewer!";
                     TextBox1.Visible = false;
                     onSubmit.Visible = false;
                     HyperLink1.Visible = false;
