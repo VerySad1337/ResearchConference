@@ -91,6 +91,7 @@ namespace ResearchConference
                         TextBox1.Visible = false;
                         onSubmit.Visible = false;
                         HyperLink1.Visible = false;
+                        
                     }
                     dbConnection.Close();
                 }
