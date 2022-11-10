@@ -74,20 +74,27 @@ namespace ResearchConference
             else
             {
                 if (int.Parse(Session["roleid"].ToString()) == 3)
-                {
-                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                    viewCommentController controller = new viewCommentController();
-                    controller.retrievePaperID(currentSessionPaperID);
-
-                    string x = controller.retrievePaperID(currentSessionPaperID);
-                    if (string.IsNullOrEmpty(x))
+                {                
+                    if (Session["PaperIDFromRow"] != null)
                     {
-                        Label3.Text = "No comments as of now";
+                        string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                        viewCommentController controller = new viewCommentController();
+                        controller.retrievePaperID(currentSessionPaperID);
+
+                        string x = controller.retrievePaperID(currentSessionPaperID);
+                        if (string.IsNullOrEmpty(x))
+                        {
+                            Label3.Text = "No comments as of now";
+                        }
+                        DataTable myDataTable = new DataTable();
+                        controller.displayComment(currentSessionPaperID).Fill(myDataTable);
+                        GridView2.DataSource = myDataTable;
+                        GridView2.DataBind();
                     }
-                    DataTable myDataTable = new DataTable();
-                    controller.displayComment(currentSessionPaperID).Fill(myDataTable);
-                    GridView2.DataSource = myDataTable;
-                    GridView2.DataBind();
+                    else
+                    {
+                        Label3.Text = "Access the proper way";
+                    }
 
                 }
                 else
