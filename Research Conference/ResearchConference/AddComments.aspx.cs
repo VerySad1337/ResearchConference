@@ -78,21 +78,31 @@ namespace ResearchConference
             {
                 if (int.Parse(Session["roleid"].ToString()) == 3)
                 {
-                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                    addCommentsController myController = new addCommentsController();
-                    if (currentSessionPaperID != null)
+                    if (Session["PaperIDFromRow"] != null)
                     {
-                        Label3.Text = "Currently giving comments for: " + myController.displayCurrentPaperTitle(currentSessionPaperID);
+                        string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                        addCommentsController myController = new addCommentsController();
+                        if (currentSessionPaperID != null)
+                        {
+                            Label3.Text = "Currently giving comments for: " + myController.displayCurrentPaperTitle(currentSessionPaperID);
 
+                        }
+                        else
+                        {
+                            Label3.Text = "Enter the proper way!";
+                            TextBox1.Visible = false;
+                            onSubmit.Visible = false;
+                            HyperLink1.Visible = false;
+                        }
+                        dbConnection.Close();
                     }
                     else
                     {
-                        Label3.Text = "Enter the proper way!";
+                        Label3.Text = "How many time must i tell u ! Use the proper workflow";
                         TextBox1.Visible = false;
                         onSubmit.Visible = false;
                         HyperLink1.Visible = false;
                     }
-                    dbConnection.Close();
                 }
                 else
                 {
