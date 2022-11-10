@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5" runat="server" id="divLoginId" visible="false">
-                                <label>Logid</label>
+                                <label>Username</label>
                                 <div class="form-group">
                                     <asp:TextBox CssClass="form-control" ID="TxtUserName" runat="server" placeholder="Enter User Name"></asp:TextBox>
                                 </div>
