@@ -12,36 +12,87 @@ namespace ResearchConference
 {
     public partial class ViewComments : System.Web.UI.Page
     {
-        //string dbConnection = @"Data Source=LAPTOP-E8Q069IQ\MSSQLSERVER01;Initial Catalog = RCMS; Integrated Security = True";
-        SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            
-            {
-                if (Session["PaperIDFromRow"] != null)
-                {
-                    using (SqlConnection sqlcon = dbConnection)
-                    {
-                        string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                        sqlcon.Open();
-                        SqlDataAdapter sqlda = new SqlDataAdapter("SELECT Comments.Userid, Comments.CommentID as CommentID ,Comments.Comments as Comments, Users.Name as Name from Comments inner join users on comments.userid = users.userid where Comments.PaperID ="+ currentSessionPaperID , sqlcon);
-                        DataTable dtbl = new DataTable();
-                        sqlda.Fill(dtbl);
-                        GridView2.DataSource = dtbl;
-                        GridView2.DataBind();
 
-                        string queryResult2 = "Select Comments.PaperID from Comments where paperid = " + currentSessionPaperID;
-                        SqlCommand displayPaperTitle = new SqlCommand(queryResult2, sqlcon);
-                        string checkForNull = displayPaperTitle.ExecuteScalar().ToString();
-                        if (string.IsNullOrEmpty(checkForNull))
-                        {
-                            Label3.Text = "No comments as of now!";
-                        }
-                    }
+        class viewCommentController
+        {
+            SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+
+            public string retrievePaperID(string sessionPaperID)
+            {
+                string currentSessionPaperID = sessionPaperID;
+                viewCommentEntity myEntity = new viewCommentEntity();
+                var x = myEntity.getPaperID(currentSessionPaperID);
+                return x;
+            }
+
+            public SqlDataAdapter displayComment(string sessionPaperID)
+            {
+                string currentSessionPaperID = sessionPaperID;
+                viewCommentEntity myEntity = new viewCommentEntity();
+                return myEntity.displayComments(currentSessionPaperID);
+            }
+
+        }
+
+        class viewCommentEntity
+        {
+            SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+
+            public string getPaperID(string sessionPaperID)
+            {
+                string currentSessionPaperID = sessionPaperID;
+                dbConnection.Open();
+                string queryResult2 = "Select Comments.PaperID from Comments where paperid = " + currentSessionPaperID;
+                SqlCommand displayPaperTitle = new SqlCommand(queryResult2, dbConnection);
+                var x = displayPaperTitle.ExecuteScalar();
+                if (x == null)
+                {
+                    return (string)displayPaperTitle.ExecuteScalar();
                 }
                 else
                 {
-                    Label3.Text = "Please view the comments the proper way";
+                    return displayPaperTitle.ExecuteScalar().ToString();
+                }
+            }
+
+            public SqlDataAdapter displayComments(string PaperID)
+            {
+                string currentSessionPaperID = PaperID;
+                dbConnection.Open();
+                SqlDataAdapter sqlda = new SqlDataAdapter("SELECT Comments.Userid, Comments.CommentID as CommentID ,Comments.Comments as Comments, Users.Name as Name from Comments inner join users on comments.userid = users.userid where Comments.PaperID =" + currentSessionPaperID, dbConnection);
+                return sqlda;
+            }
+
+        }
+        SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["UserID"] == null)
+            {
+                Response.Redirect("ReviewerLogin.aspx");
+            }
+            else
+            {
+                if (int.Parse(Session["roleid"].ToString()) == 3)
+                {
+                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                    viewCommentController controller = new viewCommentController();
+                    controller.retrievePaperID(currentSessionPaperID);
+
+                    string x = controller.retrievePaperID(currentSessionPaperID);
+                    if (string.IsNullOrEmpty(x))
+                    {
+                        Label3.Text = "No comments as of now";
+                    }
+                    DataTable myDataTable = new DataTable();
+                    controller.displayComment(currentSessionPaperID).Fill(myDataTable);
+                    GridView2.DataSource = myDataTable;
+                    GridView2.DataBind();
+
+                }
+                else
+                {
+                    Label3.Text = "Why are you here? You are not reviewer!";
                 }
             }
         }
