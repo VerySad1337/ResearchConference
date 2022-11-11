@@ -45,12 +45,6 @@
                                 Text='<%#Eval("PaperID")%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Width="250px" HeaderText="Author" Visible="false">
-                        <ItemTemplate>
-                            <asp:Label ID="lblAuthorID" runat="server"
-                                Text='<%#Eval("UserIDPosted")%>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
                     <asp:TemplateField ItemStyle-Width="250px" HeaderText="Paper Title Name">
                         <ItemTemplate>
                             <asp:Label ID="lblTitle" runat="server"
@@ -111,12 +105,8 @@
                             </asp:TemplateField>--%>
                 </Columns>
             </asp:GridView>
-            <br/>
-            <div class="form-group">
-                <asp:Label ID="lblEmailSuccess" Text="Notification Email has been sent to Author." runat="server" Visible="false" ForeColor="Green" Font-Bold="true">
-                </asp:Label>
-            </div>
-            <br />
+
+
 
         </div>
     </div>
