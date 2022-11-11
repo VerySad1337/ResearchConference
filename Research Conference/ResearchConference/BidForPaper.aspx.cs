@@ -12,7 +12,6 @@ namespace ResearchConference
 {
     public partial class BidForPaper : System.Web.UI.Page
     {
-
         class BidForPaperController
         {
             SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
@@ -23,12 +22,7 @@ namespace ResearchConference
                 var x = myEntity.getPaper();
                 return x;
             }
-
-
-
-
         }
-
         class BidForPaperEntity
         {
             SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
@@ -37,11 +31,10 @@ namespace ResearchConference
             {
                 dbConnection.Open();
                 BidForPaperController myEntity = new BidForPaperController(); //Dont Make any sense if u mark, but you require BCE!.             
-                SqlDataAdapter SQLQuery = new SqlDataAdapter ("Select PaperID, PaperTitle, URL from paper", dbConnection);
+                SqlDataAdapter SQLQuery = new SqlDataAdapter("Select PaperID, PaperTitle, URL from paper", dbConnection);
                 dbConnection.Close();
                 return SQLQuery;
             }
-
         }
         SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
@@ -77,7 +70,7 @@ namespace ResearchConference
                 }
             }
 
-         }
+        }
         protected void bidPaper_Click(object sender, EventArgs e)
         {
             int PaperID = Convert.ToInt32((sender as LinkButton).CommandArgument);

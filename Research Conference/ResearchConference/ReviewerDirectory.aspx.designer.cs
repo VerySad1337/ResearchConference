@@ -10,51 +10,60 @@
 namespace ResearchConference {
     
     
-    public partial class PaperAssignment {
+    public partial class ReviewerDirectory {
         
         /// <summary>
-        /// ddlPaperselection control.
+        /// Table2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaperselection;
+        protected global::System.Web.UI.WebControls.Table Table2;
         
         /// <summary>
-        /// Req_ID control.
+        /// Table1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Req_ID;
+        protected global::System.Web.UI.WebControls.Table Table1;
         
         /// <summary>
-        /// ddlReviewer control.
+        /// viewreviewButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReviewer;
+        protected global::System.Web.UI.WebControls.Button viewreviewButton;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// bidforpaperButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.Button bidforpaperButton;
         
         /// <summary>
-        /// btnAssign control.
+        /// currentmaxreviewButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAssign;
+        protected global::System.Web.UI.WebControls.Button currentmaxreviewButton;
+        
+        /// <summary>
+        /// publishpaperButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button publishpaperButton;
     }
 }

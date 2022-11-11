@@ -16,8 +16,8 @@ namespace ResearchConference
         class addCommentsController
         {
             SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
-            
-            public string displayCurrentPaperTitle (string currentSessionPaperID)
+
+            public string displayCurrentPaperTitle(string currentSessionPaperID)
             {
                 dbConnections.Open();
                 addCommentEntity displayCurrentPaperTitle = new addCommentEntity();
@@ -32,7 +32,7 @@ namespace ResearchConference
                 string inputComments = comments;
                 string UserID = currentSessionUserID;
                 addCommentEntity addNewComment = new addCommentEntity();
-                addNewComment.setComments(inputComments,PaperID,UserID);
+                addNewComment.setComments(inputComments, PaperID, UserID);
             }
 
 
@@ -61,7 +61,7 @@ namespace ResearchConference
                 DateTime currentTime = DateTime.Now;
                 SqlCommand insertCommand = dbConnections.CreateCommand();
                 insertCommand.CommandType = CommandType.Text;
-                insertCommand.CommandText = "Insert into Comments(Comments,PaperID,CreatedDate,UserID ) values('" +inputComments + "' , '" + PaperID + "', '" + currentTime + "', '" + UserID + "')";
+                insertCommand.CommandText = "Insert into Comments(Comments,PaperID,CreatedDate,UserID ) values('" + inputComments + "' , '" + PaperID + "', '" + currentTime + "', '" + UserID + "')";
                 insertCommand.ExecuteNonQuery();
                 dbConnections.Close();
             }
@@ -71,32 +71,42 @@ namespace ResearchConference
         {
             if (Session["UserID"] == null)
             {
-                Response.Redirect("Reviewerlogin.aspx");              
+                Response.Redirect("Reviewerlogin.aspx");
             }
 
             else
             {
                 if (int.Parse(Session["roleid"].ToString()) == 3)
                 {
-                    string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
-                    addCommentsController myController = new addCommentsController();
-                    if (currentSessionPaperID != null)
+                    if (Session["PaperIDFromRow"] != null)
                     {
-                        Label3.Text = "Currently giving comments for: " + myController.displayCurrentPaperTitle(currentSessionPaperID);
-                        
+                        string currentSessionPaperID = Session["PaperIDFromRow"].ToString();
+                        addCommentsController myController = new addCommentsController();
+                        if (currentSessionPaperID != null)
+                        {
+                            Label3.Text = "Currently giving comments for: " + myController.displayCurrentPaperTitle(currentSessionPaperID);
+
+                        }
+                        else
+                        {
+                            Label3.Text = "Enter the proper way!";
+                            TextBox1.Visible = false;
+                            onSubmit.Visible = false;
+                            HyperLink1.Visible = false;
+                        }
+                        dbConnection.Close();
                     }
                     else
                     {
-                        Label3.Text = "Enter the proper way!";
+                        Label3.Text = "How many time must i tell u ! Use the proper workflow";
                         TextBox1.Visible = false;
                         onSubmit.Visible = false;
                         HyperLink1.Visible = false;
                     }
-                    dbConnection.Close();
                 }
                 else
                 {
-                    Label3.Text = "Why are you here? You are now reviewer!";
+                    Label3.Text = "Why are you here? You are not reviewer!";
                     TextBox1.Visible = false;
                     onSubmit.Visible = false;
                     HyperLink1.Visible = false;
@@ -118,9 +128,9 @@ namespace ResearchConference
             {
                 addNewComments.storeComments(comments, currentPaperID, currentSessionUserID);
                 Response.Redirect("~/Successful.aspx");
-                
+
             }
-           
+
 
         }
 

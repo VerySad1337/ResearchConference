@@ -69,7 +69,8 @@ namespace ResearchConference
                 Response.Write(checkUserRole);
                 if (checkUserRole == 3)
                 {
-                    Response.Redirect("ViewReview.aspx");
+                    Response.Redirect("ReviewerDirectory.aspx");
+                    //Response.Redirect("ViewReview.aspx");
                 }
                 else if (checkUserRole == 1)
                 {
