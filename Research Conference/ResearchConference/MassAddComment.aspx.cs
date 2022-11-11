@@ -9,9 +9,8 @@ using System.Data.SqlClient;
 using System.Configuration;
 namespace ResearchConference
 {
-    public partial class MassAddRecord : System.Web.UI.Page
+    public partial class MassAddComment : System.Web.UI.Page
     {
-        SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
         class addCommentsController
         {
             SqlConnection dbConnections = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
@@ -68,11 +67,12 @@ namespace ResearchConference
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            for(int i = 0; i<100; i++)
+            for (int i = 0; i < 100; i++)
             {
                 string j = i.ToString();
+                string firedword = "My fired script" + j;
                 addCommentsController myController = new addCommentsController();
-                myController.storeComments(j,3.ToString(),3.ToString());
+                myController.storeComments(firedword, 3.ToString(), 3.ToString());
 
             }
 

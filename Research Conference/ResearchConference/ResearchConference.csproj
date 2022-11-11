@@ -132,6 +132,7 @@
     <Content Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
+    <Content Include="MassAddComment.aspx" />
     <Content Include="SubmitPaper.aspx" />
     <None Include="DataSet1.xsd">
       <SubType>Designer</SubType>
@@ -268,6 +269,13 @@
     </Compile>
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MassAddComment.aspx.cs">
+      <DependentUpon>MassAddComment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MassAddComment.aspx.designer.cs">
+      <DependentUpon>MassAddComment.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaperManagement\PaperAssignment.aspx.cs">
       <DependentUpon>PaperAssignment.aspx</DependentUpon>

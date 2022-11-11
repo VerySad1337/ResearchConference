@@ -11,7 +11,7 @@ namespace ResearchConference
 {
 
 
-    public partial class MassAddRecord
+    public partial class MassAddComment
     {
     }
 }
