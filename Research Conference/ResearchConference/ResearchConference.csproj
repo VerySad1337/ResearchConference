@@ -133,6 +133,9 @@
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
     <Content Include="MassAddComment.aspx" />
+    <Content Include="PaperManagement\PaperAssignment.aspx" />
+    <Content Include="PaperManagement\ViewComments.aspx" />
+    <Content Include="PaperManagement\ViewPage.aspx" />
     <Content Include="SubmitPaper.aspx" />
     <None Include="DataSet1.xsd">
       <SubType>Designer</SubType>
@@ -146,9 +149,6 @@
     <Content Include="imgs\generaluser.png" />
     <Content Include="LoginPage.aspx" />
     <Content Include="Logout.aspx" />
-    <Content Include="PaperManagement\PaperAssignment.aspx" />
-    <Content Include="PaperManagement\ViewComments.aspx" />
-    <Content Include="PaperManagement\ViewPage.aspx" />
     <Content Include="PublishPaper.aspx" />
     <Content Include="ReviewerLogin.aspx" />
     <Content Include="Scripts\bootstrap.js" />

@@ -7,6 +7,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 
 namespace ResearchConference.PaperManagement
 {
@@ -17,7 +21,21 @@ namespace ResearchConference.PaperManagement
             if (!IsPostBack)
             {
                 BindGrid();
-
+                if (Request.QueryString["sent"] != null)
+                {
+                    if (Request.QueryString["sent"].ToString() == "1")
+                    {
+                        lblEmailSuccess.Visible = true;
+                    }
+                    else
+                    {
+                        lblEmailSuccess.Visible = false;
+                    }
+                }
+                else
+                {
+                    lblEmailSuccess.Visible = false;
+                }
 
             }
         }
@@ -81,6 +99,11 @@ namespace ResearchConference.PaperManagement
 
             string paperID = ((Label)gridPaper.Rows[e.RowIndex].FindControl("lblPaperID")).Text;
 
+            string paperTitle = ((Label)gridPaper.Rows[e.RowIndex].FindControl("lblTitle")).Text;
+
+            string AuthorID = ((Label)gridPaper.Rows[e.RowIndex].FindControl("lblAuthorID")).Text;
+
+
             SqlConnection con2 = new SqlConnection(ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString);
             string com2 = "SELECT * FROM Paper WHERE PaperID ='" + paperID + "'";
             SqlDataAdapter adpt2 = new SqlDataAdapter(com2, con2);
@@ -109,7 +132,66 @@ namespace ResearchConference.PaperManagement
                 adpt.Fill(dt);
                 gridPaper.DataSource = dt;
                 gridPaper.DataBind();
-                Response.Redirect(Request.Url.AbsoluteUri);
+
+
+                string getEmail = "";
+
+                using (SqlConnection sqlConnection2 = con)
+                {
+                    string status = "select Email from Users where UserID = @userID";
+                    SqlCommand sqlComm2 = new SqlCommand(status, sqlConnection2);
+                    sqlComm2.Parameters.AddWithValue("@userID", AuthorID);
+                    try
+                    {
+                        sqlConnection2.Open();
+                        var returnValue = sqlComm2.ExecuteScalar();
+                        if (returnValue != null)
+                        {
+                            getEmail = returnValue.ToString();
+                        }
+
+                        sqlConnection2.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        //handle exception
+                    }
+                }
+
+
+
+
+                string to = getEmail; //To address    
+                string from = "researchconferencesys@zohomail.com"; //From address    
+                MailMessage message = new MailMessage(from, to);
+
+                string mailbody = "The Paper: '" + paperTitle + "' has been updated by Conference Chair. \n You may check the result on Research Conference system.";
+                message.Subject = "Paper Approval Notification";
+                message.Body = mailbody;
+                message.BodyEncoding = Encoding.UTF8;
+                message.IsBodyHtml = true;
+                SmtpClient client = new SmtpClient("smtp.zoho.com", 587); //Gmail smtp    
+                System.Net.NetworkCredential basicCredential1 = new
+                System.Net.NetworkCredential("researchconferencesys@zohomail.com", "Abcde1234@");
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = basicCredential1;
+
+                try
+                {
+                    client.Send(message);
+
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+
+                Response.Redirect(Request.Url.AbsoluteUri + "?sent=1");
+
+
 
                 //set the selected item to the same as database status when edit clicked
                 //((DropDownList)gridPaper.Rows[e.RowIndex].FindControl("ddlApproval")).Items.FindByValue(getAppStatus).Selected = true;
