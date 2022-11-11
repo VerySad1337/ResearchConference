@@ -132,6 +132,7 @@
     <Content Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
+    <Content Include="SubmitPaper.aspx" />
     <None Include="DataSet1.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -180,6 +181,7 @@
     <Content Include="Site.Master" />
     <Content Include="Successful.aspx" />
     <Content Include="ViewComments.aspx" />
+    <Content Include="ViewPaperTransaction.aspx" />
     <Content Include="ViewReview.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -331,6 +333,13 @@
     <Compile Include="ViewComments.aspx.designer.cs">
       <DependentUpon>ViewComments.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPaperTransaction.aspx.cs">
+      <DependentUpon>ViewPaperTransaction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPaperTransaction.aspx.designer.cs">
+      <DependentUpon>ViewPaperTransaction.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewReview.aspx.cs">
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -344,6 +353,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SubmitPaper.aspx.cs">
+      <DependentUpon>SubmitPaper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubmitPaper.aspx.designer.cs">
+      <DependentUpon>SubmitPaper.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

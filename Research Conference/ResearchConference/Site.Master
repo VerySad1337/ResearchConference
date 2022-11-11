@@ -52,9 +52,10 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav nav">
                         <li><a runat="server" href="~/LoginPage">Login Page</a></li>
-                        <li><a runat="server" href="~/About">Submit Paper</a></li>
+                        <li><a runat="server" href="~/SubmitPaper">Submit Paper</a></li>
+                        <li><a runat="server" href="~/PublishPaper">Publish Paper(Reviewer)</a></li>
+                        <li><a runat="server" href="~/ViewPaperTransaction">View Paper Transaction</a></li>
                         <li><a runat="server" href="~/Contact">View Reviews</a></li>
-                        <li><a runat="server" href="~/Contact">Rate Reviews</a></li>
                         <li><a runat="server" href="~/Contact">Bid Paper</a></li>
                         <li><a runat="server" href="~/PaperManagement/ViewPage">Paper Management</a></li>
                     </ul>
