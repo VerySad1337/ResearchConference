@@ -56,5 +56,14 @@ namespace ResearchConference.PaperManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gridPaper;
+        
+        /// <summary>
+        /// lblEmailSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmailSuccess;
     }
 }
