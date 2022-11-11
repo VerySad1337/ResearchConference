@@ -108,6 +108,7 @@
     <Content Include="About.aspx" />
     <Content Include="AddComments.aspx" />
     <Content Include="AddReview.aspx" />
+    <Content Include="AdminMemberManagement.aspx" />
     <Content Include="BidForPaper.aspx" />
     <Content Include="ConfirmationBidPaper.aspx" />
     <Content Include="Contact.aspx" />
@@ -203,6 +204,13 @@
     </Compile>
     <Compile Include="AddReview.aspx.designer.cs">
       <DependentUpon>AddReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminMemberManagement.aspx.cs">
+      <DependentUpon>AdminMemberManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminMemberManagement.aspx.designer.cs">
+      <DependentUpon>AdminMemberManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">

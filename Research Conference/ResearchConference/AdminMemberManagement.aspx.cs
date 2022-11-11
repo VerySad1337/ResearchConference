@@ -7,8 +7,8 @@ namespace ResearchConference
 {
     public partial class AdminMemberManagement : System.Web.UI.Page
     {
-        string constr = System.Configuration.ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-        
+        string constr = System.Configuration.ConfigurationManager.ConnectionStrings["RCMSConnectionString"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -113,7 +113,7 @@ namespace ResearchConference
                         command.Parameters.AddWithValue("@Password", txtPassword.Text.ToString());
                         command.Parameters.AddWithValue("@Salt", maxid+1);
                         command.Parameters.AddWithValue("@RoleID",Convert.ToInt32(ddRole.SelectedValue));
-                        command.Parameters.AddWithValue("@MaxReview", (!string.IsNullOrEmpty(TxtMaxReview.Text)) ? "0" : TxtMaxReview.Text);
+                        command.Parameters.AddWithValue("@MaxReview", (!string.IsNullOrEmpty(TxtMaxReview.Text)) ? null : TxtMaxReview.Text);
                         con.Open();
                         int result = command.ExecuteNonQuery();
 
@@ -161,7 +161,15 @@ namespace ResearchConference
                         command.Parameters.AddWithValue("@Password", txtPassword.Text.ToString());
                         command.Parameters.AddWithValue("@Salt", TxtSalt.Text.ToString());
                         command.Parameters.AddWithValue("@RoleID", Convert.ToInt32(ddRole.SelectedValue));
-                        command.Parameters.AddWithValue("@MaxReview", (!string.IsNullOrEmpty(TxtMaxReview.Text)) ? "0" : TxtMaxReview.Text);
+                        if (!string.IsNullOrEmpty(TxtMaxReview.Text))
+                        {
+                            command.Parameters.AddWithValue("@MaxReview", TxtMaxReview.Text);
+                        }
+                        else{
+
+                            command.Parameters.AddWithValue("@MaxReview", Convert.DBNull );
+                        }
+                        
                         con.Open();
                         int result = command.ExecuteNonQuery();
 

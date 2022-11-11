@@ -112,7 +112,7 @@ namespace ResearchConference
                 }
                 else if (checkUserRole == 2)
                 {
-                    Response.Redirect("Successful.aspx");
+                    Response.Redirect("~/PaperManagement/ViewPage.aspx");
                 }
                 else if (checkUserRole == 3)
                 {
